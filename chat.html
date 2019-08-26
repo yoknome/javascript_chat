@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Chat</title>
+    <script type="javascript" src="chat_backend.js"></script>
+    <script>
+        var extern = document.getElementsByTagName("chat.html")[0].import;
+
+        function postMessage() {
+            var username = document.getElementById('username').value;
+            var message = document.getElementById('message').value;
+            var posttime = Date.now();
+            var newParagraph = document.createElement("P");
+            newParagraph.innerHTML = username + ": " + message;
+            document.getElementById("chatbox").appendChild(newParagraph);
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <div id="chatbox" style="height: 200px;">
+
+    </div>
+
+    <input type="text" id="username" value="" placeholder="(your nickname)">
+    <input type="text" id="message" value="" placeholder="(your message)">
+    <button onclick="postMessage()">send</button>
+
+</body>
+
+</html>
