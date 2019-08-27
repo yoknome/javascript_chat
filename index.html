@@ -1,0 +1,66 @@
+<html lang="en">
+
+<head>
+	<title>Chat</title>
+	<link rel="stylesheet" href="index.css" />
+	<script>
+		var input = document.getElementById("message");
+
+		function postMessage() {
+			var username = document.getElementById('username').value + ": ";
+			var message = "\"" + document.getElementById('message').value + "\"";
+			var today = new Date();
+			var posttime = "[" + today.getHours() + ":" + today.getMinutes() + "] ";
+			var newParagraph = document.createElement("P");
+			newParagraph.innerHTML = posttime + username + message;
+			document.getElementById("chatbox").appendChild(newParagraph);
+			var elem = document.getElementById('chatbox');
+			elem.scrollTop = elem.scrollHeight;
+		}
+
+		function getAnswer() {
+			var x = document.getElementById('message').value.length;
+			if (x === 0) {
+				var newParagraph = document.createElement("P");
+				newParagraph.innerHTML = "Oracle: \"Ask me something.\"";
+				document.getElementById("chatbox").appendChild(newParagraph);
+			} else {
+				setTimeout(function () {
+					fetch('http://localhost:3333/getAnswer')
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (myJson) {
+							var answer = JSON.stringify(myJson);
+							var newParagraph = document.createElement("P");
+							newParagraph.innerHTML = "Oracle: " + answer;
+							document.getElementById("chatbox").appendChild(newParagraph);
+							var elem = document.getElementById('chatbox');
+							elem.scrollTop = elem.scrollHeight;
+						});
+				}, 1000);
+			}
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="container">
+		<div id="header">Oracle</div>
+
+		<div id="chatbox"></div>
+
+		<div id="inputbox">
+			<input type="text" id="username" value="You" size="9">
+			<input type="text" id="message" value="" placeholder="(your question)">
+			<button onclick="postMessage(); getAnswer()" id="ask">ask</button>
+		</div>
+
+	</div>
+
+	<div id="footer">&copy; Carolin &amp; Rafaela 2019 Azubi Bootcamp @ BTC AG</div>
+
+</body>
+
+</html>

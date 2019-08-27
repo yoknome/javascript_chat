@@ -1,0 +1,49 @@
+body {
+	background: white url("./images/white-wood.jpg") repeat;
+	color: #191919;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#container {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	place-content: center center;
+}
+
+#header, #chatbox, #inputbox {
+	background: #e8e4d9;
+	border-style: solid;
+	padding: 4px;
+}
+
+#header {
+	font-size: 69px;
+	text-align: center;
+}
+
+#chatbox {
+	border-width: 0px medium;
+	height: 60vh;
+	min-width: 325px;
+	max-width: 70vw;
+	overflow: auto;
+}
+
+#chatbox p {
+	margin: 0px;
+}
+
+#inputbox {
+	white-space: nowrap;
+}
+
+#footer {
+	font-size: small;
+	text-align: right;
+	padding: 2px;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+}
