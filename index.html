@@ -4,8 +4,6 @@
 	<title>Chat</title>
 	<link rel="stylesheet" href="index.css" />
 	<script>
-		var input = document.getElementById("message");
-
 		function postMessage() {
 			var username = document.getElementById('username').value + ": ";
 			var message = "\"" + document.getElementById('message').value + "\"";
@@ -14,8 +12,13 @@
 			var newParagraph = document.createElement("P");
 			newParagraph.innerHTML = posttime + username + message;
 			document.getElementById("chatbox").appendChild(newParagraph);
+
 			var elem = document.getElementById('chatbox');
 			elem.scrollTop = elem.scrollHeight;
+
+			setTimeout(function () {
+				document.getElementById("message").value = ""
+			}, 10);
 		}
 
 		function getAnswer() {
@@ -24,6 +27,8 @@
 				var newParagraph = document.createElement("P");
 				newParagraph.innerHTML = "Oracle: \"Ask me something.\"";
 				document.getElementById("chatbox").appendChild(newParagraph);
+				var elem = document.getElementById('chatbox');
+				elem.scrollTop = elem.scrollHeight;
 			} else {
 				setTimeout(function () {
 					fetch('http://localhost:3333/getAnswer')
@@ -47,6 +52,7 @@
 <body>
 
 	<div id="container">
+
 		<div id="header">Oracle</div>
 
 		<div id="chatbox"></div>
