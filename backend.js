@@ -1,9 +1,5 @@
 const httpMock = require('@Zemke/http-mock')(3333); //Florians Mock HTTP
 
-//httpMock.add('/api/tournament/', __dirname + '/mock/api_tournament.json');
-
-httpMock.add('/getAnswer', getAnswer);
-
 // Possible answers:
 var en = [
 	["Yes.", "Definitely.", "Indeed."], // positive answers
@@ -17,13 +13,32 @@ var de = [
 	["Vielleicht.", "Frag nochmal.", "Du kennst die Antwort darauf."] // neutral answers
 ];*/
 
-/* http://localhost:3333/getAnswer will provide a random 
- * positive, negative or neutral answer */
-function getAnswer(x, y) {
+// logged Chat
+var chatLog = []; 
+
+/* http://localhost:3333/getAnswer will provide 
+ * a random positive, negative or neutral answer */
+httpMock.add('/getAnswer', getAnswer);
+function getAnswer(head, data) {
+	chatLog.push(data);
+	console.log(chatLog[chatLog.length-1])
+
 	var i = getRandomInt(3);
 	var j = getRandomInt(en[i].length);
 	var answer = en[i][j];
+
+	var today = new Date();
+	var timestamp = today.getTime();
+	chatLog.push({timestamp: timestamp, username: "Oracle", message: answer})
+
 	return answer;
+}
+
+/* http://localhost:3333/getChatLog will provide 
+ * a chatlog after reload as long as the server stays online */
+httpMock.add('/getChatLog', getChatLog);
+function getChatLog() {
+	return chatLog;
 }
 
 function getRandomInt(max) {

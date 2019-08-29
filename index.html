@@ -3,57 +3,7 @@
 <head>
 	<title>Chat</title>
 	<link rel="stylesheet" href="index.css" />
-	<script>
-		function postMessage() {
-			var today = new Date();
-			var formattedTime = leadingZero(today.getHours()) + ":" + leadingZero(today.getMinutes());
-			var messageLength = document.getElementById('message').value.length;
-			var chatbox = document.getElementById('chatbox');
-			var newParagraph = document.createElement("P");
-
-			if (messageLength === 0) {
-				newParagraph.innerHTML = "[" + formattedTime + "] " + "Oracle: \"Ask me something.\"";
-				scrollBox(chatbox, newParagraph)
-			} else {
-				var username = document.getElementById('username').value;
-				var message = document.getElementById('message').value;
-				document.getElementById("message").value = ""
-				var timestamp = today.getTime();
-
-				newParagraph.innerHTML = "[" + formattedTime + "] " + username + ": \"" + message + "\"";
-				scrollBox(chatbox, newParagraph)
-				setTimeout(function () {
-					fetch('http://localhost:3333/getAnswer', {
-						method: 'POST',
-						body: JSON.stringify({
-							timestamp: timestamp,
-							username: username,
-							message: message
-						})
-					}).then(function (response) {
-						return response.json();
-					}).then(function (myJson) {
-						var answer = JSON.stringify(myJson);
-						var newParagraph = document.createElement("P");
-						newParagraph.innerHTML = "[" + formattedTime + "] " + "Oracle: " + answer;
-						scrollBox(chatbox, newParagraph)
-					});
-				}, 1000);
-			}
-		}
-		function leadingZero(t) {
-			if (String(t).length > 1) {
-				return t;
-			} else {
-				min = "0" + String(t);
-				return min;
-			}
-		}
-		function scrollBox(chatbox, newParagraph) {
-			chatbox.appendChild(newParagraph);
-			chatbox.scrollTop = chatbox.scrollHeight;
-		}
-	</script>
+	<script src="frontend.js"></script>
 </head>
 
 <body>
