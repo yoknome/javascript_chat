@@ -19,7 +19,7 @@ var de = [
 
 /* http://localhost:3333/getAnswer will provide a random 
  * positive, negative or neutral answer */
-function getAnswer() {
+function getAnswer(x, y) {
 	var i = getRandomInt(3);
 	var j = getRandomInt(en[i].length);
 	var answer = en[i][j];
